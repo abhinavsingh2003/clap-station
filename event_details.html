@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+{% block webpage %}
+<!-- partial -->
+<div class="container-fluid page-body-wrapper" style="margin-top: 80px;">
+    
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title record" style="color: white;">Events</h4>
+                            <div class="category-tabs">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#add" class="active"><i
+                                                class="mdi mdi-plus" style="color: white;"></i>Add</a></li>
+                                    <li><a data-toggle="tab" href="#view" class="tabs-view"><i
+                                                class="mdi mdi-eye" style="color: white;"></i>View</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="add" class="tab-pane fade in active show">
+                                        <div class="form-wrap">
+                                            <div class="technichian-form">
+                                                <!-- <form class="technichian-forrm" action="/"> -->
+                                                    <div class="technichian-form-in">
+                                                        <h3 style="color: white;">Fill the Details:</h3>
+                                                        <div class="row">
+
+
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                <form class="technichian-form" action="{% url 'event_details' %}" method="post" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Event Name"
+                                                                        id="booking_name" name="eventname"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Category"
+                                                                        id="booking_name" name="category"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Location"
+                                                                        id="booking_name" name="Location"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Budget"
+                                                                        id="booking_name" name="Budget"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <textarea placeholder="Description"
+                                                                        class="form-control" name="Description"
+                                                                        style="height:80px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                <div class="technichian-detail">
+                                                                    <div class="mod-image-wrap mod-comm-wrap">
+                                                                        <div class="mod-image">
+                                                                            <img src="{% static 'images/profile-1.png' %}"
+                                                                                id="blah">
+                                                                        </div>
+                                                                        <div class="mod-btn">
+                                                                            <div class="box">
+                                                                                <!-- <input type="file" name="file-1[]"
+                                                                                    id="file-1"
+                                                                                    class="inputfile inputfile-1"
+                                                                                    data-multiple-caption="{count} files selected"
+                                                                                    multiple=""
+                                                                                    onchange="readURL(this);"> -->
+                                                                                    <label class="home-img-upload-section">
+                                                                                        <input class="home-img-upload" type="file" id = "img" name="file-1">
+                                                                                        <img src="{% static 'images/photo.png' %}" ><i style="color: white;">Photos/Videos</i>
+                                                                                    </label>
+                                                                                <!-- <label for="file-1"><i
+                                                                                        class="mdi mdi-cloud-upload"
+                                                                                        aria-hidden="true" name="file-1[]" ></i>
+                                                                                    <span style="color: white;">Upload Photo</span></label> -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                        
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <div class="service-view technichian-detail text-center">
+                                                            <button type="submit"
+                                                                class="login-btn slowHover">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div><!--form-wrap-->
+                                    </div><!--tab-1-->
+                                    <!-- <div  class="tab-pane fade"> -->
+                                        <table class="table event_name" id="view">
+                                            <thead>
+                                                <tr>
+                                                    <th style="color: white;">Image </th>
+                                                    <th style="color: white;">Event Name</th>
+                                                    <th style="color: white;">Description</th>
+                                                    <th style="color: white;">Your Action </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for obj in eventdetailpage %}
+                                                <tr>
+                                                    <td style="color: white; height: 10px; width: 10px;"><img src="/media/{{obj.image}}"
+                                                            alt="image"></td>
+                                                    <td style="color: white; margin-top: 10px;"><h4>{{obj.eventname}}</h4></td>
+                                                    <td style="color: white;">
+                                                        {{obj.description}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'edit' obj.id %}"><button type="button" class="login-btn slowHover"><i
+                                                                class="mdi mdi-pencil"></i>Edit</button></a>
+                                                                <br>
+                                                        <a href="/deletelist/{{obj.id}}"><button type="button" class="login-btn btn-delete slowHover"><i
+                                                                class="mdi mdi-delete"></i>Delete</button></a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+        
+                                            </tbody>
+                                        </table>
+                                        <div class="inner-btn">
+                                            <a href="{% url 'starting-page' %}"><button type="button" class="btn btn-primary toolbar-item">Update</button></a>
+                                        </div>
+                                    </div><!--tab-2-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+            <div class="container-fluid clearfix">
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2020 <a
+                        href="index.html" target="_blank">Clap Station</a>. All rights reserved.</span>
+                <span class="text-muted float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                    Design & Developed by <a href="https://www.netcoreinfo.com" target="_blank">Netcoreinfo Group</a>
+                </span>
+            </div>
+        </footer>
+        <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- endinject -->
+<!-- Custom js for this page-->
+<!-- End custom js for this page-->
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+{% endblock webpage %}

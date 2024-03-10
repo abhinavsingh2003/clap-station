@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+{% block webpage %}
+<!-- partial -->
+<div class="container-fluid page-body-wrapper "style="margin-top: 70px;">
+    
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title record" style="color: white;">Events</h4> -->
+                            <div class="category-tabs">
+                                <!-- <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#add" class="active"><i
+                                                class="mdi mdi-plus" style="color: white;"></i>Add</a></li>
+                                    <li><a data-toggle="tab" href="#view" class="tabs-view"><i
+                                                class="mdi mdi-eye" style="color: white;"></i>View</a></li>
+                                </ul> -->
+                                <div class="tab-content">
+                                    <div id="add" class="tab-pane fade in active show">
+                                        <div class="form-wrap">
+                                            <div class="technichian-form-">
+                                                <!-- <form class="technichian-forrm" action="/"> -->
+                                                    <form class="technichian-form" action="{% url 'update' eventdetailpage.id %}" method="post" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                    <div class="technichian-form-in">
+                                                        <h3 style="color: white;">Fill the update Details:</h3>
+                                                        <div class="row">
+
+                                                            
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Event Name"
+                                                                        id="booking_name" name="eventname" value="{{eventdetailpage.eventname}}"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Category"
+                                                                        id="booking_name" name="category" value="{{eventdetailpage.category}}"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Location"
+                                                                        id="booking_name" name="Location" value="{{eventdetailpage.location}}"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <input type="text" placeholder="Budget"
+                                                                        id="booking_name" name="Budget" value="{{eventdetailpage.budget}}"
+                                                                        required="" class="form-control"
+                                                                        aria-required="true">
+                                                                </div>
+                                                                <div class="technichian-detail">
+                                                                    <textarea placeholder="Description"
+                                                                        class="form-control" id="booking_name" name="Description" 
+                                                                        style="height:80px;" required="">{{eventdetailpage.description}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                <div class="technichian-detail">
+                                                                    <div class="mod-image-wrap mod-comm-wrap">
+                                                                        <div class="mod-image">
+                                                                            <img src="{% static 'images/profile-1.png' %}"
+                                                                                id="blah">
+                                                                        </div>
+                                                                        <div class="mod-btn">
+                                                                            <div class="box">
+                                                                                <!-- <input type="file" name="file-1[]"
+                                                                                    id="file-1"
+                                                                                    class="inputfile inputfile-1"
+                                                                                    data-multiple-caption="{count} files selected"
+                                                                                    multiple=""
+                                                                                    onchange="readURL(this);"> -->
+                                                                                    <label class="home-img-upload-section">
+                                                                                        <input id="booking_name" required="" class="home-img-upload" type="file"  name="file-1" value="{{eventdetailpage.image}}">
+                                                                                        <img src="{% static 'images/photo.png' %}" ><i style="color: white;">Photos/Videos</i>
+                                                                                    </label>
+                                                                                <!-- <label for="file-1"><i
+                                                                                        class="mdi mdi-cloud-upload"
+                                                                                        aria-hidden="true" name="file-1[]" ></i>
+                                                                                    <span style="color: white;">Upload Photo</span></label> -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                        
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <div class="service-view technichian-detail text-center">
+                                                            <button type="submit"
+                                                                class="login-btn slowHover">Update</button>
+                                                            <br>
+                                                            <br>
+                                                            <button 
+                                                                class="login-btn slowHover"><a href="{% url 'event_details' %}">Cancel</a></button>
+
+                                                                <!-- <div class="inner-btn">
+                                                                    <a href="{% url 'event_details' %}"><button type="button" class="btn btn-primary toolbar-item">Cancel</button></a>
+                                                                </div> -->
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                               
+                                            </div>
+                                        </div><!--form-wrap-->
+                                    </div><!--tab-1-->
+                                    <!-- <div  class="tab-pane fade"> -->
+                                        
+                                        
+                                    </div><!--tab-2-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+            <div class="container-fluid clearfix">
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2020 <a
+                        href="index.html" target="_blank">Clap Station</a>. All rights reserved.</span>
+                <span class="text-muted float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                    Design & Developed by <a href="https://www.netcoreinfo.com" target="_blank">Netcoreinfo Group</a>
+                </span>
+            </div>
+        </footer>
+        <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- endinject -->
+<!-- Custom js for this page-->
+<!-- End custom js for this page-->
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+{% endblock webpage %}

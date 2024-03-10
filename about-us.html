@@ -1,0 +1,690 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %} {% endblock title %}</title>
+
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{% static 'css/bootsrap-datepicker.css' %}" type="text/css" />
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+  <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+
+  <!-- swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    header {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1;
+      box-shadow: 0 0 10px #000;
+      background: rgb(191 145 0 / 0.7);
+      margin-right: 20px;
+    }
+
+    #chk1 {
+      display: none;
+    }
+
+    i {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    header .logo {
+      margin-left: 15px;
+      /* flex: 1; */
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    header .search-box {
+      position: relative;
+    }
+
+    .custom-icon{
+      color: #fff;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      border: none;
+      outline: none;
+      background: #f2f2f2;
+      border-radius: 30px;
+      color: grey;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .search-box button {
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 30px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: scale(0.9);
+      background: rgb(191 145 0 / 0.7);
+    }
+
+    .profile-icon button {
+      margin-left: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 30px;
+      position: relative;
+      background: rgb(191 145 0 / 0.7);
+    }
+
+    .profile-icon button i {
+      margin-right: 20px;
+      right: 30px;
+
+    }
+
+    .dropdown-menu{
+      margin-top: 10px; 
+      margin-left: 80%; 
+      background-color: rgb(191 145 0 / 0.7); 
+      color: #000;
+    }
+
+    .dropdown-menu .dropdown-item:hover{
+        background-color:#785c08c4;
+    }
+
+    header ul {
+      flex: 5;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    header ul li {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    header ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 1px;
+    }
+
+    header ul li:hover {
+      border-bottom: 2px solid rgb(224, 221, 190);
+    }
+
+    header .menu {
+      font-size: 2.5em;
+      display: none;
+    }
+
+    @media(max-width:1024px) {
+      .search-box button {
+        position: absolute;
+        margin-left: 20px;
+        right: -26px;
+      }
+
+      .search-box input {
+        margin-left: 25px;
+      }
+
+      header ul {
+        position: fixed;
+        top: 100px;
+        right: -1000px;
+        background: rgba(0, 0, 0, 0.5);
+        height: 500px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        transition: right 0.5s linear;
+        overflow-x: hidden;
+      }
+
+      i:hover {
+        color: #000;
+        background-color: antiquewhite;
+      }
+
+      header .menu {
+        display: block;
+        width: 100px;
+        text-align: center;
+      }
+
+      #chk1:checked~ul {
+        right: 0;
+      }
+    }
+
+
+     /* footer start */
+     footer {
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      background: rgb(191 145 0 / 0.7);
+      color: #fff;
+      padding: 15px 0 15px;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      font-size: 13px;
+      line-height: 15px;
+    }
+
+    .footer-row {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .footer-col {
+      flex-basis: 25%;
+      padding: 10px;
+    }
+
+    .footer-col:nth-child(2),
+    .footer-col:nth-child(3) {
+      flex-basis: 12%;
+    }
+
+    .footer-logo {
+      width: 80px;
+      margin-bottom: 30px;
+    }
+
+    .footer-col h3 {
+      width: fit-content;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .email-id {
+      width: fit-content;
+      border-bottom: 1px solid #ccc;
+      margin: 20px 0;
+    }
+
+    .footer-col ul li {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .footer-col form {
+      padding-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 50px;
+    }
+
+    .footer-col form .fa {
+      font-size: 30px;
+      margin-right: 10px;
+    }
+
+    .footer-col form input {
+      width: 100%;
+      background: transparent;
+      color: #fff;
+      border: 0;
+      outline: none;
+      margin-left: 10px;
+    }
+
+    .social-icons .fa {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-size: 20px;
+      color: rgb(191 145 0 / 0.7);
+      background: #fff;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    hr {
+      width: 90%;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+      margin: 20px auto;
+    }
+
+    .copyright {
+      text-align: center;
+    }
+
+    .underline {
+      width: 100%;
+      height: 5px;
+      background: #ccc;
+      border-radius: 3px;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .underline span {
+      width: 15px;
+      height: 100%;
+      background: rgb(191 145 0 / 0.7);
+      border-radius: 3px;
+      position: absolute;
+      top: 0;
+      left: 10px;
+      animation: moving 2s linear infinite;
+    }
+
+    @keyframes moving {
+      0% {
+        left: -20%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      footer {
+        bottom: unset;
+      }
+
+      .footer-col {
+        flex-basis: 100%;
+      }
+
+      .footer-col:nth-child(2),
+      .footer-col:nth-child(3) {
+        flex-basis: 100%;
+      }
+    }
+    /* footer end */
+
+
+	/*team*/#team{
+		margin-top: 60%;
+		margin-bottom: 5%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		width: 100%;
+		
+	}
+	
+	h2{
+		color: #0c6464;
+		font-family: 'Josefin Sans', sans-serif;
+		font-size: 4em;
+		font-weight: 800;
+	}
+	
+	.team-img{
+		border-radius: 100%;
+		width: 100px;
+	}
+	.team-member{
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	
+	.icon{
+		margin-top: 5px;
+		margin-bottom: 5px;
+		margin-left: 5px;
+		margin-right: 5px;
+		width: 20px;
+		height: 20px;
+	}
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+       /* body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+*/
+        #slideshow-container {
+            max-width: 100%;
+            
+            margin: auto;
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            /*background-position: center;*/
+            animation: fade 3s ease-in-out infinite;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0;
+            }
+            20%, 80% {
+                opacity: 1;
+            }
+        }
+
+        .text-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+        }
+	
+  </style>
+
+
+  {% block head %}
+
+
+  {% endblock head %}
+</head>
+
+
+<body style="margin-bottom: 100px;">
+  <!--website-wrap-->
+  <div class="website-wrap home-page about-page artist-page bands-page">
+    <div class="page-back">
+      <!--page-black-overlay-->
+      <div class="page-black-overlay">
+        <header>
+          <input type="checkbox" name="" id="chk1">
+          <div class="logo">
+            <a href="{% url 'starting-page' %}"><img src="{% static 'images/logo.png' %}"></a>
+          </div>
+          <ul style="font-size: medium;">
+            <li><a href="{% url 'starting-page' %}">Home</a></li>
+            <li><a href="{% url 'groups' %}">Groups</a></li>
+            <li><a href="{% url 'bands' %}">Bands</a></li>
+            <li><a href="{% url 'academies' %}">Academies</a></li>
+            <li><a href="{% url 'events' %}">Events</a></li>
+            <li><a href="{% url 'artists' %}">Artists</a></li>
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'contact' %}">Contact us</a></li>
+            <li>
+              <a href="#"><i class="fa  fa-bell-o fa-2x"></i></a>
+            </li>
+            <li>
+              <div class=" profile-icon slowHover">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <a href="#"><i class="fa fa-user fa-2xl"></i></a>
+                </button>
+                <ul class="dropdown-menu cmmn-btn">
+                  {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'profile' %}"><i
+                        class="fa fa-user fa-2x custom-icon" aria-hidden="true"></i><span
+                        style="font-size: larger; margin-left: 5px; color: #fff;"> Profile</span></a>
+                  </li>
+
+                  <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-user fa-2x custom-icon"
+                          aria-hidden="true"></i>
+                        <span style="font-size: larger; margin-left: 5px; color: #fff;"> Log Out</span></a>
+                  </li>
+                  {% else %}
+                  <li><a class="dropdown-item" href="{% url 'login' %}"><i class="fa fa-user fa-2x custom-icon"
+                        aria-hidden="true"></i>
+                      <span style="font-size: larger; margin-left: 5px; color: #fff;"> Sign In </span></a>
+                  </li>
+
+                  <li><a class="dropdown-item" href="{% url 'signup' %}"><i class="fa fa-user fa-2x custom-icon"
+                        aria-hidden="true"></i>
+                      <span style="font-size: larger; margin-left: 5px; color: #fff;"> SignUp</span></a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <div class="search-box" style="margin-right: 30px;">
+            <form action="">
+              <input type="text" name="search" id="srch" placeholder="Search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+          <div class="menu">
+            <label for="chk1">
+              <i class="fa fa-bars"></i>
+            </label>
+          </div>
+        </header>
+<!--demo--><!--Abhinav--><br>
+		<div>
+			
+			<div id="slideshow-container">
+				<div class="slide" style="background-image:{% static 'images/logo.png' %} ;">
+					<div class="text-content">
+						<p>Create a presence. Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world.</p>
+						<!-- Add more text lines if needed -->
+					</div>
+				</div>
+			
+				<div class="slide" style="background-image: url{% static 'images/logo.png' %};">
+					<div class="text-content">
+						<p>we are a social media company for musions. safjsdg dsfojmsg gsjodidgn fojsgn sk gsjodgn s gsjngs gjsgns gsjsgns Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world</p>
+						<!-- Add more text lines if needed -->
+					</div>
+				</div>
+			
+				<div class="slide" style="background-image: ;">
+					<div class="text-content">
+						<p>ClapStation is best site for musicians.Create a presence. Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world.
+			
+						</p>
+						<!-- Add more text lines if needed -->
+					</div>
+				</div>
+			</div>
+			<br>
+						
+        {% block webpage %}
+
+		<!--Abhinav-->
+<br>
+<div>
+			
+<div id="slideshow-container">
+    <div class="slide"  style="background-image: url('{% static 'images/home-posts.png' %}');"> 
+        <div class="text-content">
+            <p>Create a presence. Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world.</p>
+            <!-- Add more text lines if needed -->
+        </div>
+    </div>
+
+    <div class="slide" style="background-image: url('{% static 'images/pf-photo-1.jpg' %}');">
+        <div class="text-content">
+            <p>we are a social media company for musions. safjsdg dsfojmsg gsjodidgn fojsgn sk gsjodgn s gsjngs gjsgns gsjsgns Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world</p>
+            <!-- Add more text lines if needed -->
+        </div>
+    </div>
+
+    <div class="slide" style="background-image: url('{% static 'images/artist.jpg' %}');">
+        <div class="text-content"> 
+            <p>ClapStation is best site for musicians.Create a presence. Who knows about your talent? Where can prospects and clients go to explore more? This website can help establish your carrier as a going concern, communicate your brand value proposition and it can convey professionalism. It also extends your reach to anyone in the world.
+
+			</p>
+            <!-- Add more text lines if needed-->
+        </div>
+    </div>
+</div>
+<br>
+			
+
+		</div>
+		<section id="team">
+			<div class="row">
+				<h2>Our Team</h2>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 team-member">
+					<img src="{% static 'images/boy.png' %}" alt="employee-image" class="team-img">
+					<h3>Dipak Sir</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 team-member">
+					<img src="{% static 'images/boy.png' %}" alt="employee-image" class="team-img">
+					<h3>Abhinav Singh</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 team-member">
+					<img src="{% static 'images/boy.png' %}" alt="employee-image" class="team-img">
+					<h3>Anant</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12  team-member">
+					<img src="{% static 'images/boy.png' %}" alt="employee-image" class="team-img">
+					<h3>Aryan</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 team-member">
+					<img src="{% static 'images/boy.png' %}" alt="employee-image" class="team-img">
+					<h3>Himanshu</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 team-member">
+					<img src="{% static 'images/girl.png' %}" alt="employee-image" class="team-img">
+					<h3>Arushi</h3>
+					<p>Lorem ipsum dolor sit amet consectetur.</p>
+				</div>
+			</div>
+		</section>
+		<!--Abhinav-->
+       
+       
+        {% endblock webpage %}
+
+        <!-- Footer start -->
+        <footer>
+          <div class="row footer-row">
+            <div class="col footer-col">
+              <img src="{% static 'images/logo.png' %}" alt="" class="logo footer-logo">
+              <p style="text-align: justify;">A clap-Station website is a platform designed to facilitate the planning,
+                promotion, and execution of musical events featuring bands or artists. </p>
+              <br>
+              <p style="text-align: justify;">These websites typically offer a range of services to both event
+                organizers and musicians, streamlining the process of coordinating and promoting live music
+                performances.</p>
+            </div>
+
+            <div class="col footer-col">
+              <h3>Office <div class="underline"><span></span> </div>
+              </h3>
+              <p>noida</p>
+              <p>sector 2, noida, 201301</p>
+              <p class="email-id"><a href="mailto:connect@netcoreinfo.com"
+                  style="color: #fff;">connect@netcoreinfo.com</a></p>
+              <h4>+91-12345678</h4>
+            </div>
+
+            <div class="col footer-col">
+              <h3>Links <div class="underline"><span></span> </h3>
+              <ul>
+                <li><a href="{% url 'starting-page' %}">Home</a></li>
+                <li><a href="{% url 'bands' %}">Bands</a></li>  
+                <li><a href="{% url 'artists' %}">Artists</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'groups' %}">Groups</a></li>
+                <li><a href="{% url 'academies' %}">Academies</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+              </ul>
+            </div>
+
+            <div class="col footer-col">
+              <h3>Newsletter <div class="underline"><span></span> </h3>
+              <form>
+                <i class="fa fa-envelope-open-o " aria-hidden="true"></i>
+                <input type="email" placeholder="Enter Your email-id" required>
+                <buttom type="Submit"><i class="fa fa-arrow-circle-right " aria-hidden="true"></i></i></buttom>
+              </form>
+
+              <div class="social-icons">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <p class="copyright"><a href="https://netcoreinfo.com/" style="color: #ccc;"
+              class="email-id">netcoreinfo.com</a> <i class="fa fa-copyright" aria-hidden="true"></i> 2023 - All Rights
+            Reserved</p>
+        </footer>
+        <!-- Footer end -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/popper.mi' %}n.js" type="text/javascript"></script>
+  <script src="{% static 'js/bootstrap' %}.min.js" type="text/javascript"></script>
+  <script src="{% static 'js/datelocal.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
+  <script src="{% static 'assets/js/main.js' %}" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showNextSlide() {
+        slides[currentIndex].style.display = 'none';
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].style.display = 'block';
+    }
+
+    setInterval(showNextSlide, 3000); // Change slide every 3 seconds
+</script>
+
+
+
+</body>
+
+</html>

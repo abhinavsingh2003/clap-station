@@ -1,0 +1,2311 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Jamming Station | Clap Station {% endblock title %}
+
+{% block head %}
+
+<style>
+	*,
+	*::before,
+	*::after {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		list-style-type: none;
+		text-decoration: none;
+	}
+
+	:root {
+		--primary: #ec994b;
+		--white: #ffffff;
+		--bg: #f5f5f5;
+	}
+
+	html {
+		/* font-size: 62.5%;
+  font-family: "Montserrat", sans-serif; */
+		scroll-behavior: smooth;
+	}
+
+	@media (min-width: 1440px) {
+		html {
+			zoom: 1.5;
+		}
+	}
+
+	@media (min-width: 2560px) {
+		html {
+			zoom: 1.7;
+		}
+	}
+
+	@media (min-width: 3860px) {
+		html {
+			zoom: 2.5;
+		}
+	}
+
+	::-webkit-scrollbar {
+		width: 1.3rem;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 1rem;
+		background: #797979;
+		transition: all 0.5s ease-in-out;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #222224;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #f9f9f9;
+	}
+
+	body {
+		font-size: 1.6rem;
+		background: var(--bg);
+	}
+
+
+	.custom-container {
+		background-color: #eee;
+		/* height: 600px !important; */
+		/* width: 1000px !important; */
+		padding-top: 5px;
+		/* padding: 10px 15px; */
+		margin-top: 30px;
+	}
+
+	.container {
+		max-width: 124rem;
+		padding: 0 1rem;
+		margin: 0 auto;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.section-heading {
+		font-size: 3rem;
+		color: var(--primary);
+		padding: 2rem 0;
+	}
+
+	#tranding {
+		padding: 4rem 0;
+	}
+
+
+	/* @media (max-width:1440px) {
+  #tranding {
+    padding: 10px 10px;
+  }
+} */
+
+	#tranding .tranding-slider {
+		height: 52rem;
+		padding: 2rem 0;
+		margin-right: 2rem;
+		position: relative;
+
+	}
+
+	@media (max-width:500px) {
+		#tranding .tranding-slider {
+			height: 45rem;
+		}
+	}
+
+	.tranding-slide {
+		width: 30rem;
+		height: 42rem;
+		position: relative;
+		z-index: -1;
+	}
+
+	@media (max-width:500px) {
+		.tranding-slide {
+			width: 28rem !important;
+			height: 36rem !important;
+		}
+
+		.tranding-slide .tranding-slide-img img {
+			width: 28rem !important;
+			height: 36rem !important;
+		}
+	}
+
+	.tranding-slide .tranding-slide-img img {
+		width: 37rem;
+		height: 42rem;
+		border-radius: 2rem;
+		object-fit: cover;
+	}
+
+	.tranding-slide .tranding-slide-content {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.tranding-slide-content .food-price {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+		color: var(--white);
+	}
+
+	.tranding-slide-content .tranding-slide-content-bottom {
+		position: absolute;
+		bottom: 2rem;
+		left: 2rem;
+		color: var(--white);
+	}
+
+	.food-rating {
+		padding-top: 1rem;
+		display: flex;
+		gap: 1rem;
+	}
+
+	.rating ion-icon {
+		color: var(--primary);
+	}
+
+	.swiper-slide-shadow-left,
+	.swiper-slide-shadow-right {
+		display: none;
+	}
+
+	.tranding-slider-control {
+		position: relative;
+		bottom: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tranding-slider-control .swiper-button-next {
+		left: 58% !important;
+		transform: translateX(-58%) !important;
+	}
+
+	@media (max-width:990px) {
+		.tranding-slider-control .swiper-button-next {
+			left: 70% !important;
+			transform: translateX(-70%) !important;
+		}
+	}
+
+	@media (max-width:450px) {
+		.tranding-slider-control .swiper-button-next {
+			left: 80% !important;
+			transform: translateX(-80%) !important;
+		}
+	}
+
+	@media (max-width:990px) {
+		.tranding-slider-control .swiper-button-prev {
+			left: 30% !important;
+			transform: translateX(-30%) !important;
+		}
+	}
+
+	@media (max-width:450px) {
+		.tranding-slider-control .swiper-button-prev {
+			left: 20% !important;
+			transform: translateX(-20%) !important;
+		}
+	}
+
+	.tranding-slider-control .slider-arrow {
+		background: var(--white);
+		width: 3.5rem;
+		height: 3.5rem;
+		border-radius: 50%;
+		left: 42%;
+		transform: translateX(-42%);
+		filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+	}
+
+	.tranding-slider-control .slider-arrow ion-icon {
+		font-size: 2rem;
+		color: #222224;
+	}
+
+	.tranding-slider-control .slider-arrow::after {
+		content: '';
+	}
+
+	.tranding-slider-control .swiper-pagination {
+		position: relative;
+		width: 15rem;
+		bottom: 1rem;
+	}
+
+	.tranding-slider-control .swiper-pagination .swiper-pagination-bullet {
+		filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+	}
+
+	.tranding-slider-control .swiper-pagination .swiper-pagination-bullet-active {
+		background: var(--primary);
+	}
+
+
+	/* --------------- videos part-1 ------------------ */
+	.containerr {
+		width: 100%;
+		height: 100vh;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.containerr .slider {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+
+	.containerr ul {
+		position: absolute;
+		bottom: 30px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 20;
+	}
+
+	.containerr ul li {
+		list-style: none;
+		cursor: pointer;
+		margin: 10px;
+	}
+
+
+	.containerr ul li video {
+		width: 200px;
+		transition: all 0.3s;
+	}
+
+	.containerr ul li video:hover {
+		transform: scale(1.1);
+	}
+
+	video {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* ---------------------- videosss part-2 ----------------- */
+	.custom-video {
+		background: #eee;
+		margin-top: 20px;
+	}
+
+	.heading {
+		color: #444;
+		font-size: 40px;
+		text-align: center;
+		padding: 10px;
+	}
+
+	.container-video {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 15px;
+		align-items: flex-start;
+		padding: 5px 5%;
+	}
+
+	.container-video .main-video {
+		background: #fff;
+		border-radius: 5px;
+		padding: 10px;
+	}
+
+	.container-video .main-video video {
+		width: 100%;
+		border-radius: 5px;
+	}
+
+	.container-video .main-video .title {
+		color: #333;
+		font-size: 23px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+
+	.container-video .video-list {
+		background: #fff;
+		border-radius: 5px;
+		height: 520px;
+		overflow-y: scroll;
+	}
+
+	.container-video .video-list::-webkit-scrollbar {
+		width: 7px;
+	}
+
+	.container-video .video-list::-webkit-scrollbar-track {
+		background: #ccc;
+		border-radius: 50px;
+	}
+
+	.container-video .video-list::-webkit-scrollbar-thumb {
+		background: #666;
+		border-radius: 50px;
+	}
+
+	.container-video .video-list .vid video {
+		width: 100px;
+		border-radius: 5px;
+	}
+
+	.container-video .video-list .vid {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		background: #f7f7f7;
+		border-radius: 5px;
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid rgba(0, 0, 0, .1);
+		cursor: pointer;
+	}
+
+	.container-video .video-list .vid:hover {
+		background: #eee;
+	}
+
+	.container-video .video-list .vid.active {
+		background: #2980b9;
+	}
+
+	.container-video .video-list .vid.active .title {
+		color: #fff;
+	}
+
+	.container-video .video-list .vid .title {
+		color: #333;
+		font-size: 17px;
+	}
+
+	@media (max-width:991px) {
+		.container-video {
+
+			grid-template-columns: 1.5fr 1fr;
+			padding: 10px;
+		}
+	}
+
+	@media (max-width:768px) {
+		.container-video {
+
+			grid-template-columns: 1fr;
+			padding: 10px;
+		}
+	}
+
+
+	/* friends section */
+	/* .home-container {
+		width: 100%;
+		height: 80vh;
+		margin-top: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #615e5e;
+	}
+
+	@media (max-width:1533){
+		.profile-card {
+		position: relative;
+		width: 220px;
+		height: 220px;
+		background-color: #fff;
+		padding: 30px;
+		border-radius: 50%;
+		box-shadow: -5px 8px 45px rgba(51, 51, 51, 0.126);
+		transition: all .4s;
+		margin: 0 20px;
+	}
+	}
+	
+
+	.custom-card {
+      width: 200px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin: 10px;
+      text-align: center;
+      padding: 20px;
+    }
+
+	.profile-card {
+		position: relative;
+		width: 220px;
+		height: 220px;
+		background-color: #fff;
+		padding: 30px;
+		border-radius: 50%;
+		box-shadow: -5px 8px 45px rgba(51, 51, 51, 0.126);
+		transition: all .4s;
+		margin: 0 20px;
+	}
+
+	.profile-card:hover {
+		border-radius: 10px;
+		height: 260px;
+	}
+
+	.profile-card .img {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.profile-card:hover img {
+		border-radius: 10px;
+		height: 60%;
+		transform: translateY(-70px);
+	}
+
+	.img img {
+		object-fit: fill;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		transition: all .4s;
+		z-index: 99;
+	}
+
+	.caption {
+		text-align: center;
+		transform: translateY(-90px);
+		opacity: 0;
+		pointer-events: none;
+		transition: all .5s;
+	}
+
+	.profile-card:hover .caption {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	.caption h3 {
+		font-size: 21px;
+		color: #0c52a1;
+		font-weight: 600;
+	}
+
+	.caption p {
+		font-size: 15px;
+		font-weight: 500;
+		margin: 2px 0 12px 0;
+	}
+
+	.caption .social-links i {
+		font-size: 21px;
+		margin: 0 3px;
+		cursor: pointer;
+		color: #333;
+		transition: all .4s;
+	}
+
+	.caption .social-links i:hover {
+		color: #0c52a1;
+	} */
+    .title-box{
+		text-align: center;
+		margin: 30px auto 30px;
+	}
+
+	.profile-box{
+		width: 280px;
+		height: 260px;
+		background: #fff;
+		border-radius: 4px;
+		margin-bottom: 30px;
+		box-shadow: 0 10px 10px rgba(115,193,255,0.1);
+		padding: 20px;
+		position: relative;
+		transition: background 0.5s;
+		justify-content: space-between;
+	}
+
+	.profile-box img{
+		width: 100px;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		border-radius: 4px;
+		transition: .5s;
+	}
+
+	.profile-box h4{
+		margin-top: 25px;
+		margin-bottom: 5px;
+		color: #000;
+	}
+
+	small{
+		color: #555;
+	}
+
+	.social-box{
+		background: rgb(191 145 0 / 0.7);
+		margin: 100px auto 10px;
+		text-align: center;
+		border-radius: 3px;
+	}
+
+	.social-box .fa{
+		margin: 5px;
+		color: #fff;
+		cursor: pointer;
+	}
+
+
+	.team-row{
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		width: 85%;
+		margin: auto;
+	}
+
+	.profile-box img:hover{
+		width: 240px;
+	}
+
+	.profile-box:hover{
+		background: rgb(191 145 0 / 0.7);
+	}
+
+	.profile-box:hover h4{
+		color: #fff;
+	}
+
+
+	.profile-box:hover small{
+		color: #efefef;
+	}
+
+	.profile-box:hover .social-box{
+		background: #fff;
+	}
+
+	.profile-box:hover .social-box .fa{
+		background: rgb(191 145 0 / 0.7);
+	}
+
+	/* @media (max-width:767px){
+		.golden-heading h3{
+			margin-top: 50px;
+		}
+	} */
+</style>
+{% endblock head %}
+
+{% block webpage %}
+<!--webpage-->
+<div class="webpage page-new-profile" style="margin-top: 80px;">
+	<div class="container-fluid">
+		<div class="home-page-wrap profile-page-wrap">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+
+						<!-- Profile -->
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 profile-top-left-col">
+							<div class="profile-top-left jamming-top-left">
+								<div class="row">
+									<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+										<div class="top-left-image">
+											<img src="{% static 'images/profile-1.png' %}">
+										</div>
+									</div>
+									<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+										<div class="top-left-dtl">
+											<div class="top-left-dtl-one">
+												<h1>Kumar Vivek</h1>
+											</div>
+											<div class="left-dtl-one-list">
+												<ul>
+													<li><a href="#"><img src="{% static 'images/mike.png' %}"></a></li>
+													<li><a href="#"><img src="{% static 'images/guitar.png' %}"></a>
+													</li>
+													<!-- <li><a href="#"><img src="{% static 'images/tutor.png' %}"></a></li> -->
+												</ul>
+											</div>
+										</div>
+										<div class="top-left-dtl-second jamming-top-left-dtl">
+											<span><i class="fa fa-map-marker" aria-hidden="true"></i> Address: House
+												No., Street, City, State, Country,1010110</span>
+										</div>
+										<div class="top-left-dtl-third">
+
+											<button class="cmmn-btn slowHover" type="button" data-toggle="modal"
+												data-target="#editprofileModal"><i class="fa fa-pencil-square-o"
+													aria-hidden="true"></i>Edit Profile</button>
+
+											<button class="cmmn-btn top-left-book  slowHover" type="button"
+												data-toggle="modal" data-target="#bookModal"><i
+													class="fa fa-arrow-circle-right"
+													aria-hidden="true"></i>Book</button>
+
+											<button class="cmmn-btn slowHover" type="button"><i
+													class="fa fa-share-square-o" aria-hidden="true"></i></button>
+										</div>
+										<!-- Modal edit-profile-modal-->
+										<!-- Modal edit-profile-modal-->
+										<div id="editprofileModal" class="edit-profile-modal modal fade" role="dialog">
+											<div class="modal-dialog">
+
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title">EDIT PROFILE</h4>
+														<button type="button" class="close" data-dismiss="modal"><img
+																src="{% static 'images/cross.png' %}"></button>
+													</div>
+													<div class="modal-body">
+														<div class="row">
+															<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+																<div class="mod-image-wrap mod-comm-wrap">
+																	<div class="mod-image">
+																		<img src="{% static 'images/profile-1.png' %}"
+																			id="blah">
+																	</div>
+																	<div class="mod-btn">
+																		<div class="box">
+																			<input type="file" name="file-1[]"
+																				id="file-1"
+																				class="inputfile inputfile-1"
+																				data-multiple-caption="{count} files selected"
+																				multiple="" onchange="readURL(this);">
+																			<label for="file-1"><i
+																					class="fa fa-cloud-upload"
+																					aria-hidden="true"></i> <span>Upload
+																					Photo</span></label>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-lg-8 col-md-3 col-sm-12 col-xs-12">
+																<div class="mod-comm-wrap mod-event mod-slots">
+																	<h3>Update Info</h3>
+																	<div class="slot-left slot-category">
+
+																		<div class="row">
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="row">
+																					<div
+																						class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mod-date mod-time">
+																						<label for="category"
+																							class="control-label">Category:</label>
+																					</div>
+																					<div
+																						class="col-lg-7 col-md-7 col-sm-12 col-xs-12 mod-date mod-time">
+																						<div class='input-group ed-pr-catgy dd-lft'
+																							id='category'>
+																							<div class="dropdown">
+																								<button
+																									class="btn btn-secondary dropdown-toggle"
+																									type="button"
+																									id="dropdownMenuButton"
+																									data-toggle="dropdown"
+																									aria-haspopup="true"
+																									aria-expanded="false">
+																									Select
+																								</button>
+																								<div class="dropdown-menu"
+																									aria-labelledby="dropdownMenuButton">
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox5">
+																										<label
+																											for="checkbox5">Delhi</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox6">
+																										<label
+																											for="checkbox6">Noida</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox7">
+																										<label
+																											for="checkbox7">Gurugram</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox8">
+																										<label
+																											for="checkbox8">Ghaziabad</label>
+																									</a>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row">
+																					<div
+																						class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mod-date mod-time">
+																						<label for="subcategory"
+																							class="control-label">Sub-Category:</label>
+																					</div>
+																					<div
+																						class="col-lg-7 col-md-7 col-sm-12 col-xs-12 mod-date mod-time">
+																						<div class='input-group ed-pr-catgy ed-pr-catgy-2 dd-lft'
+																							id='category'>
+																							<div class="dropdown">
+																								<button
+																									class="btn btn-secondary dropdown-toggle"
+																									type="button"
+																									id="dropdownMenuButton"
+																									data-toggle="dropdown"
+																									aria-haspopup="true"
+																									aria-expanded="false">
+																									Select
+																								</button>
+																								<div class="dropdown-menu"
+																									aria-labelledby="dropdownMenuButton">
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox1">
+																										<label
+																											for="checkbox1">Tabla</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox2">
+																										<label
+																											for="checkbox2">Guitar</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox3">
+																										<label
+																											for="checkbox3">Violin</label>
+																									</a>
+																									<a class="dropdown-item"
+																										href="#">
+																										<input
+																											class="ed-pr-dd-chb"
+																											type="checkbox"
+																											id="checkbox4">
+																										<label
+																											for="checkbox4">Flute</label>
+																									</a>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12 budget-location-col">
+																				<div class="row">
+																					<div
+																						class="col-lg-4 col-md-3 col-sm-12 col-xs-12 mod-date mod-timeup">
+																						<label for="budget"
+																							class="control-label mod-endtime">Budget:</label>
+																					</div>
+																					<div
+																						class="col-lg-8 col-md-3 col-sm-12 col-xs-12 mod-date">
+																						<div class='input-group'
+																							id='budget'>
+																							<input type='text'
+																								class="form-control">
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row">
+																					<div
+																						class="col-lg-4 col-md-3 col-sm-12 col-xs-12 mod-date mod-time">
+																						<label for="location"
+																							class="control-label mod-endtime">Location:</label>
+																					</div>
+																					<div
+																						class="col-lg-8 col-md-3 col-sm-12 col-xs-12 mod-date mod-time">
+																						<div class='input-group'
+																							id='location'>
+																							<input type='text'
+																								class="form-control">
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="update-edit-btn text-center">
+																			<button class="cmmn-btn slowHover"
+																				type="button"><img
+																					src="{% static 'images/mod-save.png' %}">Update</button>
+																		</div>
+
+
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="mod-add-ph-vd">
+															<div class="row">
+																<div class="col-lg-6 col-md-3 col-sm-12 col-xs-12">
+																	<div class="mod-comm-wrap mod-add-ph">
+																		<h3>Add Photos</h3>
+																		<div class="table-responsive">
+																			<table class="mytable">
+																				<tr>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-2[]"
+																								id="file-2"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURLthis(this);">
+																							<label for="file-2"><img
+																									src="{% static 'images/edit-profile-2.png' %}"
+																									id="blah2"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-3[]"
+																								id="file-3"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURLbook(this);">
+																							<label for="file-3"><img
+																									src="{% static 'images/edit-profile-2.png' %}"
+																									id="blah3"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																				</tr>
+																			</table>
+																		</div>
+																		<div class="mod-add-ph">
+																			<div class="mod-btn">
+																				<div class="box max-width-initial">
+																					<input type="file" name="file-1[]"
+																						id="file-1"
+																						class="inputfile inputfile-1"
+																						data-multiple-caption="{count} files selected"
+																						multiple=""
+																						onchange="readURL(this);">
+																					<label for="file-1"
+																						class="upload-new-label"><i
+																							class="fa fa-cloud-upload"
+																							aria-hidden="true"></i>
+																						<span>Upload</span></label>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6 col-md-3 col-sm-12 col-xs-12">
+																	<div class="mod-comm-wrap mod-add-ph">
+																		<h3>Add Videos</h3>
+																		<div class="table-responsive">
+																			<table class="mytable">
+																				<tr>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-2[]"
+																								id="file-2"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURLthis(this);">
+																							<label for="file-2"><img
+																									src="{% static 'images/edit-profile-2.png' %}"
+																									id="blah2"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-3[]"
+																								id="file-3"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURLbook(this);">
+																							<label for="file-3"><img
+																									src="{% static 'images/edit-profile-2.png' %}"
+																									id="blah3"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																					<td>
+																						<div class="box">
+																							<input type="file"
+																								name="file-1[]"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><img
+																									src="{% static 'images/edit-profile-2.png' %}"></label>
+																						</div>
+																					</td>
+																				</tr>
+																			</table>
+																		</div>
+																		<div class="mod-add-ph">
+																			<div class="mod-btn">
+																				<div class="box max-width-initial">
+																					<input type="file" name="file-1[]"
+																						id="file-1"
+																						class="inputfile inputfile-1"
+																						data-multiple-caption="{count} files selected"
+																						multiple=""
+																						onchange="readURL(this);">
+																					<label for="file-1"
+																						class="upload-new-label"><i
+																							class="fa fa-cloud-upload"
+																							aria-hidden="true"></i>
+																						<span>Upload</span></label>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="mod-slots mod-comm-wrap">
+															<h3>Update Slots</h3>
+															<div class="mod-slot-dtl-wrp">
+																<div class="row">
+																	<!-- <div class="col-lg-5 col-md-3 col-sm-12 col-xs-12">
+					        				<div class="slot-left">
+						        				<div class="form-group">
+						        					<div class="row">
+						        						<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 mod-date">
+						        							<label for="datetimepicker1" class="control-label">Select Date:</label>
+						        						</div>
+						        						<div class="col-lg-8 col-md-3 col-sm-12 col-xs-12 mod-date">
+										                	<div class='input-group date' id='datetimepicker1'>
+										                    	<input type='text' class="form-control" >
+										                    	<span class="input-group-addon">
+										                        <span class="glyphicon glyphicon-calendar"></span>
+										                    </span>
+										                	</div>
+										            	</div>
+									            	</div>
+						        				</div>
+					        				</div>
+					        			</div> -->
+																	<!--<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">-->
+																	<!--	<div class="slot-left">-->
+																	<!--		<div class="form-group">-->
+																	<!--			<div class="row">-->
+																	<!--				<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 mod-date mod-timeup">-->
+																	<!--					<label for="datetimepicker2" class="control-label mod-endtime">Start Time:</label>-->
+																	<!--				</div>-->
+																	<!--				<div class="col-lg-8 col-md-3 col-sm-12 col-xs-12 mod-date">-->
+																	<!--          	<div class='input-group date mod-endtime' id='datetimepicker2'>-->
+																	<!--              	<input type='text' class="form-control" >-->
+																	<!--              	<span class="input-group-addon">-->
+																	<!--                  <span class="glyphicon glyphicon-time"></span>-->
+																	<!--              	</span>-->
+																	<!--          	</div>-->
+																	<!--      	</div>-->
+																	<!--      	<div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 mod-date mod-time">-->
+																	<!--					<label for="datetimepicker3" class="control-label mod-endtime">End Time:</label>-->
+																	<!--				</div>-->
+																	<!--				<div class="col-lg-8 col-md-3 col-sm-12 col-xs-12 mod-date mod-time">-->
+																	<!--          	<div class='input-group date mod-endtime' id='datetimepicker3'>-->
+																	<!--              	<input type='text' class="form-control" >-->
+																	<!--              	<span class="input-group-addon">-->
+																	<!--                  <span class="glyphicon glyphicon-time"></span>-->
+																	<!--              	</span>-->
+																	<!--          	</div>-->
+																	<!--      	</div>-->
+																	<!--     	</div>-->
+																	<!--		</div>-->
+																	<!--	</div>-->
+																	<!--</div>-->
+
+																	<div
+																		class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																		<div class="mod-sm-allslots">
+
+																			<ul>
+																				<li class="slot-gray"> 09:00 AM - 9:30
+																					AM <i class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li> 09:00 AM - 9:30 AM <i
+																						class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li class="slot-gray"> 09:00 AM - 9:30
+																					AM <i class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li> 09:00 AM - 9:30 AM <i
+																						class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li class="slot-gray"> 09:00 AM - 9:30
+																					AM <i class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li> 09:00 AM - 9:30 AM <i
+																						class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li class="slot-gray"> 09:00 AM - 9:30
+																					AM <i class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																				<li> 09:00 AM - 9:30 AM <i
+																						class="fa fa-minus-circle"
+																						aria-hidden="true"></i> </li>
+																			</ul>
+																		</div>
+																	</div>
+
+																	<div class="update-edit-btn text-center">
+																		<button class="cmmn-btn slowHover"
+																			type="button"><img
+																				src="{% static 'images/mod-save.png">Save</button>
+																		<br>
+																		<br>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<br>
+													</div>
+													<!--<div class="modal-footer">-->
+													<!--	<button class="cmmn-btn slowHover" type="button"><img src="{% static 'images/mod-save.png' %}">SAVE</button>-->
+													<!--</div>-->
+												</div>
+
+											</div>
+										</div><!-- Modal edit-profile-modal-->
+										<!-- Modal book-modal -->
+										<div id="bookModal" class="book-modal modal fade" role="dialog">
+											<div class="modal-dialog">
+
+												<!-- Modal content-->
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title">Select Available Slot</h1>
+														<button type="button" class="close" data-dismiss="modal"><img
+																src="{% static 'images/cross.png' %}"></button>
+													</div>
+													<div class="modal-body">
+														<div class="book-body-wrap">
+															<div class="row">
+																<div
+																	class="col-lg-4 col-md-3 col-sm-12 col-xs-12 book-lft-col">
+																	<div class="book-lft-wrap">
+																		<div class="lft-top">
+																			<h1>07<sup>SEPT</sup><sub>MONDAY</sub></h1>
+																		</div>
+																		<div class="lft-mddl">
+																			<p>Select Available Slots</p>
+																			<table>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark"></span>
+																						</label>
+																					</td>
+																					<td>
+																						<label class="slot-check">9am -
+																							10am
+																							<input type="checkbox">
+																							<span
+																								class="checkmark checkmark-green"></span>
+																						</label>
+																					</td>
+																				</tr>
+																			</table>
+																		</div>
+																		<p class="avail"><i class="fa fa-square"
+																				aria-hidden="true"></i>Available Slot
+																		</p>
+																		<p class="unavail"><i class="fa fa-square"
+																				aria-hidden="true"></i>Unavailable Slot
+																		</p>
+
+																		<h4
+																			class="book-left-bottom-heading text-center">
+																			Jamming Station</h4>
+																	</div>
+																</div>
+																<div
+																	class="col-lg-8 col-md-3 col-sm-12 col-xs-12 book-rght-col">
+																	<div class="right-calen">
+																		<div class="calendar">
+																			<div class="calendar__month">
+																				<div class="cal-month__previous"><i
+																						class="fa fa-caret-left"
+																						aria-hidden="true"></i></div>
+																				<div class="cal-month__current"></div>
+																				<div class="cal-month__next"><i
+																						class="fa fa-caret-right"
+																						aria-hidden="true"></i></div>
+																			</div>
+																			<div class="calendar-months-list">
+																				<span class="month-hover">Jan</span>
+																				<span class="month-hover">Feb</span>
+																				<span class="month-hover">Mar</span>
+																				<span class="month-hover">Apr</span>
+																				<span class="month-hover">May</span>
+																				<span class="month-hover">Jun</span>
+																				<span class="month-hover">July</span>
+																				<span class="month-hover">Aug</span>
+																				<span class="month-hover">Sep</span>
+																				<span class="month-hover">Oct</span>
+																				<span class="month-hover">Nov</span>
+																				<span class="month-hover">Dec</span>
+																			</div><!-- months -->
+																			<div class="calendar__head">
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																				<div class="cal-head__day"></div>
+																			</div>
+																			<div class="calendar__body">
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																				<div class="cal-body__week">
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																					<div class="cal-body__day"></div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="cmmn-btn book-btn slowHover"
+															data-dismiss="modal">Proceed to Pay <img
+																src="{% static 'images/proceedtopay.png' %}"></button>
+													</div>
+												</div>
+											</div><!---modal-dialog--->
+										</div><!----book-modal---->
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- follows -->
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 profile-top-right-col">
+							<div class="follow-rates" style="height: 205px; ">
+								<table>
+									<tr>
+										<td class="follow-image"><img src="{% static 'images/jamming-station-2.png' %}">
+										</td>
+										<td class="follow-detail">9 Operating Hours</td>
+										<td class="follow-image"><img src="{% static 'images/jamming-station-3.png' %}">
+										</td>
+										<td class="follow-detail">₹10 Hourly Rate</td>
+									</tr>
+									<tr>
+										<td class="follow-image"><img src="{% static 'images/group.png' %}">
+										<td class="follow-detail">100 Followers</td>
+									</tr>
+									<tr>
+										<td class="follow-image"><img src="{% static 'images/jamming-station-1.png' %}">
+										</td>
+										<td class="follow-detail">Rating</td>
+										<td colspan="2" class="follow-star"> <i class="fa fa-star"
+												aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i
+												class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star"
+												aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
+										</td>
+									</tr>
+								</table>
+								<div class="follow-btn">
+									<button class="cmmn-btn slowHover" type="button"><i class="fa fa-rss"
+											aria-hidden="true"></i>Follow Me</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Photos -->
+						<!-- <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 pf-lft-col">
+							<div class="profile-left-area">
+								<div class="golden-heading">
+									<h3>Photos</h3>
+								</div>
+								<div class="profile-ph-lf-wrp">
+									<div class="row">
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col photos-col-mbl">
+											<div class="profile-photo-wrap">
+												<img src="{% static 'images/pf-photo-1.jpg' %}">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="profile-left-area">
+								<div class="golden-heading">
+									<h3>Videos</h3>
+								</div>
+								<div class="profile-ph-lf-wrp profile-vd-lf-wrp">
+									<div class="row">
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-3 col-sm-6 col-xs-6 videos-col">
+											<div class="profile-photo-wrap profile-video-wrap">
+												<iframe width="100%" height="100"
+													src="https://www.youtube.com/embed/vNW-mTJJNts" frameborder="0"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+													allowfullscreen></iframe>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+					</div>
+				</div>
+
+				<!-- Attending Events -->
+				<div class="col-lg-3 col-md-3 col-sm-12 col-6 pf-rght-col">
+					<div class="home-right-area pf-events"  >
+						<div class="atnd-events">
+							<div class="golden-heading">
+								<h3>Attending Events</h3>
+							</div>
+							<div class="home-contact-dtl">
+								<table>
+									<tr>
+										<td> <img src="{% static 'images/calendar.png' %}"> </td>
+										<td><a href="#"> 14th Aug: Sandeep's Jam Room</a></td>
+									</tr>
+									<tr>
+										<td> <img src="{% static 'images/calendar.png' %}"> </td>
+										<td><a href="#"> 22nd Aug: Rahul's Table Event</a></td>
+									</tr>
+									<tr>
+										<td> <img src="{% static 'images/calendar.png' %}"> </td>
+										<td><a href="#"> 1st Sept: Band 1 Event</a></td>
+									</tr>
+									<tr>
+										<td> <img src="{% static 'images/calendar.png' %}"> </td>
+										<td><a href="#"> 21st Sept: Band 2 Event</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="home-advts">
+							<div class="golden-heading" style="margin-top: 40px;">
+								<h3>Advertisements</h3>
+							</div>
+							<div class="right-image">
+								<img src="{% static 'images/home-advs.png' %}">
+							</div>
+						</div>
+
+						<!-- friends name -->
+						<!-- <div class="profile-right-area">
+							<div class="golden-heading">
+								<h3>Friends</h3>
+							</div>
+							<div class="profile-ph-lf-wrp">
+								<div class="row">
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-6 col-xs-6 photos-col photos-col-mbl">
+										<div class="profile-photo-wrap">
+											<img src="{% static 'images/pf-photo-1.jpg' %}">
+											<span>Friend Name</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+
+				<!-- posts -->
+				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pf-middl-col ">
+					<div class="home-middle-area">
+						<div class="middle-txt-area">
+							<form action="">
+								<textarea id="" name="" rows="4" cols="50"
+									placeholder="Share your content....."></textarea>
+							</form>
+						</div>
+						<div class="middle-text-post">
+							<ul>
+								<li><a href="#"><img src="{% static 'images/video.png' %}"> Live Videos</a></li>
+								<li><a href="#"><img src="{% static 'images/photo.png' %}"> Photos/Videos</a>
+								</li>
+								<li><a href="#"><img src="{% static 'images/calendar.png' %}"> Events</a></li>
+								<li></li>
+							</ul>
+							<div class="home-middle-area-btn">
+								<button class="cmmn-btn middle-area-btn slowHover" type="button"><i
+										class="fa fa-pencil-square-o" aria-hidden="true"></i>Post</button>
+							</div>
+						</div>
+						<div class="home-posts-wrap profile-posts-wrap">
+							<div class="white-heading">
+								<h3>Posts</h3>
+							</div>
+							<div class="posts-images">
+								<img src="{% static 'images/home-posts.png' %}">
+								<p>Alienum phaedrum torquatos nec eu, vis detraxit periculis ex, nihil
+									expetendis in mei. </p>
+								<ul>
+									<li><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a>
+									</li>
+									<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i> Rate</a></li>
+									<li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+											Comment</a></li>
+									<li><a href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>
+											Reshare</a></li>
+									<li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Report</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="home-posts-wrap profile-posts-wrap">
+							<div class="white-heading">
+								<h3>Posts</h3>
+							</div>
+							<div class="posts-images">
+								<img src="{% static 'images/home-posts.png' %}">
+								<p>Alienum phaedrum torquatos nec eu, vis detraxit periculis ex, nihil
+									expetendis in mei. </p>
+								<ul>
+									<li><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a>
+									</li>
+									<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i> Rate</a></li>
+									<li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+											Comment</a></li>
+									<li><a href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>
+											Reshare</a></li>
+									<li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Report</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- <div class="home-posts-wrap profile-posts-wrap">
+							<div class="white-heading">
+								<h3>Posts</h3>
+							</div>
+							<div class="posts-images">
+								<img src="{% static 'images/home-posts.png' %}">
+								<p>Alienum phaedrum torquatos nec eu, vis detraxit periculis ex, nihil
+									expetendis in mei. </p>
+								<ul>
+									<li><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a>
+									</li>
+									<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i> Rate</a></li>
+									<li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+											Comment</a></li>
+									<li><a href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>
+											Reshare</a></li>
+									<li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Report</a>
+									</li>
+								</ul>
+							</div>
+						</div> -->
+
+					</div>
+				</div>
+				<!-- posts end -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- photos start -->
+<div class="container-fluid custom-container" style="background-color: #eee; border-radius: 1%;">
+	<section id="tranding" style="color: black;">
+		<div class="container">
+			<h3 class="text-center section-subheading">- Photo gallery -</h3>
+		</div>
+		<div class="container">
+			<div class="swiper tranding-slider">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img src="{% static 'images/pf-photo-1.jpg' %}" alt="Tranding">
+						</div>
+					</div>
+
+				</div>
+
+				<div class="tranding-slider-control">
+					<div class="swiper-button-prev slider-arrow">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div class="swiper-button-next slider-arrow">
+						<ion-icon name="arrow-forward-outline"></ion-icon>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</div>
+
+<!-- video start part-1 -->
+<!-- <div class="container-fluid custom-container" style="background-color: #eee; border-radius: 1%; height: 720px;">
+	<div class="container">
+		<h3 class="text-center section-subheading" style="margin-top: 30px; margin-bottom: 20px;">- Video gallery -</h3>
+	</div>
+	<div class="containerr">
+		<video src="{% static 'videos/video1.mp4' %}" class="slider" autoplay loop muted controls></video>
+
+		<ul>
+			<li onclick="videoslider('{% static 'videos/video1.mp4' %}')"><video
+					src="{% static 'videos/video1.mp4' %}"></video></li>
+			<li onclick="videoslider('{% static 'videos/video1.mp4' %}')"><video
+					src="{% static 'videos/video1.mp4' %}"></video></li>
+			<li onclick="videoslider('{% static 'videos/video1.mp4' %}')"><video
+					src="{% static 'videos/video1.mp4' %}"></video></li>
+			<li onclick="videoslider('{% static 'videos/video1.mp4' %}')"><video
+					src="{% static 'videos/video1.mp4' %}"></video></li>
+			<li onclick="videoslider('{% static 'videos/video1.mp4' %}')"><video
+					src="{% static 'videos/video1.mp4' %}"></video></li>
+		</ul>
+	</div>
+</div> -->
+
+
+<!-- video start part-2 -->
+<div class="custom-video">
+	<div class="heading">
+		<h3 class="text-center section-subheading" style="margin-top: 30px; ">- Video gallery -</h3>
+	</div>
+	<div class="row">
+		<div class="container-video ">
+
+			<div class="main-video">
+				<div class="video">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">01. Videos title goes here</h3>
+				</div>
+			</div>
+
+			<div class="video-list">
+				<div class="vid active">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">01. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">02. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">03. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">04. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">05. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">06. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">07. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">08. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">09. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">10. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">11. Videos title goes here</h3>
+				</div>
+				<div class="vid">
+					<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+					<h3 class="title">12. Videos title goes here</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- friends section -->
+<!-- <div class="home-container">
+	<div class="heading">
+		<h3 class="text-center section-subheading" style="margin-top: 10px; ">- Friends gallery -</h3>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-3 col-lg-3 col-12 col-xl-3 profile-card ">
+			<div class="custom-card">
+			<div class="img">
+				<img src="{% static 'images/pf-photo-1.jpg' %}">
+			</div>
+			<div class="caption">
+				<h3>Tom Cruise</h3>
+				<p>Full Stack Developer</p>
+				<div class="social-links">
+					<i class="fa-brands fa-facebook"></i>
+					<i class="fa-brands fa-twitter"></i>
+					<i class="fa-brands fa-instagram"></i>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-12 profile-card ">
+			<div class="custom-card">
+			<div class="img">
+				<img src="{% static 'images/pf-photo-1.jpg' %}">
+			</div>
+			<div class="caption">
+				<h3>Tom Cruise</h3>
+				<p>Full Stack Developer</p>
+				<div class="social-links">
+					<i class="fa-brands fa-facebook"></i>
+					<i class="fa-brands fa-twitter"></i>
+					<i class="fa-brands fa-instagram"></i>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-12 profile-card ">
+			<div class="custom-card">
+			<div class="img">
+				<img src="{% static 'images/pf-photo-1.jpg' %}">
+			</div>
+			<div class="caption">
+				<h3>Tom Cruise</h3>
+				<p>Full Stack Developer</p>
+				<div class="social-links">
+					<i class="fa-brands fa-facebook"></i>
+					<i class="fa-brands fa-twitter"></i>
+					<i class="fa-brands fa-instagram"></i>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-12 profile-card ">
+			<div class="custom-card">
+			<div class="img">
+				<img src="{% static 'images/pf-photo-1.jpg' %}">
+			</div>
+			<div class="caption">
+				<h3>Tom Cruise</h3>
+				<p>Full Stack Developer</p>
+				<div class="social-links">
+					<i class="fa-brands fa-facebook"></i>
+					<i class="fa-brands fa-twitter"></i>
+					<i class="fa-brands fa-instagram"></i>
+				</div>
+			</div>
+		</div>
+		</div>
+
+	</div>
+
+
+</div> -->
+
+
+<!-- friends section -->
+<div class="container-fluid custom-container" style="background-color: #746f6f; border-radius: 1%; height: 700px; margin-top: 20px;">
+	<div class="container title-box">
+		<h3 class="text-center section-subheading">- Photo gallery -</h3>
+	</div>
+
+<div class="team-row">
+	<div class="profile-box">
+		<h4>friend name</h4>
+		<small>Artists</small>
+		<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+		<div class="social-box">
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-twitter"></i>
+			<i class="fa fa-linkedin"></i>
+			<i class="fa fa-instagram"></i>
+		</div>
+	</div>
+
+	<div class="profile-box">
+		<h4>friend name</h4>
+		<small>Artists</small>
+		<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+		<div class="social-box">
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-twitter"></i>
+			<i class="fa fa-linkedin"></i>
+			<i class="fa fa-instagram"></i>
+		</div>
+	</div>
+
+	<div class="profile-box">
+		<h4>friend name</h4>
+		<small>Artists</small>
+		<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+		<div class="social-box">
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-twitter"></i>
+			<i class="fa fa-linkedin"></i>
+			<i class="fa fa-instagram"></i>
+		</div>
+	</div>
+
+	<div class="profile-box">
+		<h4>friend name</h4>
+		<small>Artists</small>
+		<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+		<div class="social-box">
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-twitter"></i>
+			<i class="fa fa-linkedin"></i>
+			<i class="fa fa-instagram"></i>
+		</div>
+	</div>
+
+	<div class="profile-box">
+		<h4>friend name</h4>
+		<small>Artists</small>
+		<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+		<div class="social-box">
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-twitter"></i>
+			<i class="fa fa-linkedin"></i>
+			<i class="fa fa-instagram"></i>
+		</div>
+		</div>
+
+		<div class="profile-box">
+			<h4>friend name</h4>
+			<small>Artists</small>
+			<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+			<div class="social-box">
+				<i class="fa fa-facebook"></i>
+				<i class="fa fa-twitter"></i>
+				<i class="fa fa-linkedin"></i>
+				<i class="fa fa-instagram"></i>
+			</div>
+		</div>
+
+		<div class="profile-box">
+			<h4>friend name</h4>
+			<small>Artists</small>
+			<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+			<div class="social-box">
+				<i class="fa fa-facebook"></i>
+				<i class="fa fa-twitter"></i>
+				<i class="fa fa-linkedin"></i>
+				<i class="fa fa-instagram"></i>
+			</div>
+		</div>
+
+		<div class="profile-box">
+			<h4>friend name</h4>
+			<small>Artists</small>
+			<img src="{% static 'images/pf-photo-1.jpg' %}" alt="">
+			<div class="social-box">
+				<i class="fa fa-facebook"></i>
+				<i class="fa fa-twitter"></i>
+				<i class="fa fa-linkedin"></i>
+				<i class="fa fa-instagram"></i>
+			</div>
+		</div>
+</div>
+</div>
+<!--webpage-->
+
+
+<!-- photo swiper cdn -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+<!-- video part-1 -->
+<script>
+	function videoslider(links) {
+		document.querySelector(".slider").src = links;
+	}
+</script>
+
+<!-- video part-2 -->
+<script>
+	let listVideo = document.querySelectorAll('.video-list .vid');
+	let mainVideo = document.querySelector('.main-video video');
+	let title = document.querySelector('.main-video .title');
+
+	listVideo.forEach(video => {
+		video.onclick = () => {
+			listVideo.forEach(vid => vid.classlist.remove('active'));
+			video.classList.add('active');
+			if (video.classList.contains('active')) {
+				let src = video.children[0].getAttribute('src');
+				mainVideo.src = src;
+				let text = video.children[1].innerHTML;
+				title.innerHTML = text;
+			};
+		};
+	});
+</script>
+
+<script type="text/javascript">
+	$(function () {
+		$('.toggle-menu').click(function () {
+			$('.exo-menu').toggleClass('display');
+		});
+	});
+	$(document).ready(function () {
+		$(".toggle-menu").click(function () {
+			$(".mobile-close").show(400);
+		});
+		$(".mobile-close").click(function () {
+			$(".exo-menu").removeClass('display');
+			$(this).hide(400);
+		});
+	});
+</script>
+<script type="text/javascript">
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#blah')
+					.attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	function readURLthis(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#blah2')
+					.attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	function readURLbook(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#blah3')
+					.attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
+<script type="text/javascript">
+	$(function () {
+		$('#datetimepicker1').datetimepicker({
+			format: 'L'
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(function () {
+		$('#datetimepicker2').datetimepicker({
+			format: 'LT'
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(function () {
+		$('#datetimepicker3').datetimepicker({
+			format: 'LT'
+		});
+	});
+</script>
+<script>
+	var TrandingSlider = new Swiper('.tranding-slider', {
+		effect: 'coverflow',
+		grabCursor: true,
+		centeredSlides: true,
+		loop: true,
+		slidesPerView: 'auto',
+		coverflowEffect: {
+			rotate: 0,
+			stretch: 0,
+			depth: 100,
+			modifier: 2.5,
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		}
+	});
+</script>
+
+{% endblock webpage %}
